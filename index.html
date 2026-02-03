@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botanical Garden Care</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Botanical Garden Zones</h1>
+        <p>Monitor the health of your garden zones</p>
+    </header>
+
+    <main>
+        
+
+        <!-- This is where JavaScript will insert our zone cards -->
+        <div id="zones-container"></div>
+
+<!-- Weather Widget Section -->
+        <section id="weather-widget">
+            <div class="weather-header">
+                <h2>Garden Weather</h2>
+                <!-- City picker dropdown -->
+                <select id="city-select">
+                    <!-- Options will be added by JavaScript -->
+                </select>
+            </div>
+
+            <!-- Loading state - shown while fetching data -->
+            <div id="weather-loading" class="weather-loading">
+                Loading weather data...
+            </div>
+
+            <!-- Error state - shown if something goes wrong -->
+            <div id="weather-error" class="weather-error" style="display: none;">
+                <p>Unable to load weather data.</p>
+                <button id="retry-button">Try Again</button>
+            </div>
+
+            <!-- Weather content - shown when data loads successfully -->
+            <div id="weather-content" style="display: none;">
+                <!-- Today's weather -->
+                <div id="current-weather" class="current-weather">
+                    <!-- Filled by JavaScript -->
+                </div>
+
+                <!-- 10-day forecast -->
+                <div id="forecast" class="forecast">
+                    <!-- Filled by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- We load JavaScript at the end so the HTML loads first -->
+    <script src="data.js"></script>
+    <script src="cities.js"></script>
+    <script src="weather.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

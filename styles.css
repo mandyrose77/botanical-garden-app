@@ -1,0 +1,323 @@
+/*
+  styles.css - Plant-themed styling for our garden app
+
+  CSS works by selecting HTML elements and applying styles to them.
+  Each rule has a selector (like "body") and properties (like "background-color").
+*/
+
+/* Apply styles to the whole page */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f7f0;  /* Light sage green background */
+    margin: 0;
+    padding: 20px;
+    color: #2d5a2d;  /* Dark forest green text */
+}
+
+/* Style the header section */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #2d5a2d;  /* Dark forest green */
+    color: white;
+    border-radius: 10px;
+}
+
+header h1 {
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+}
+
+header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Container for all zone cards - uses CSS Grid for layout */
+#zones-container {
+    display: grid;
+    /* This creates a responsive grid - cards will wrap to new rows as needed */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;  /* Centers the container */
+}
+
+/* Individual zone card styling */
+.zone-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #4a7c4a;  /* Green accent border */
+    transition: transform 0.2s;  /* Smooth hover effect */
+}
+
+.zone-card:hover {
+    transform: translateY(-2px);  /* Slight lift on hover */
+}
+
+/* Zone name styling */
+.zone-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    color: #2d5a2d;
+}
+
+/* Zone type (like "indoor_conservatory") */
+.zone-type {
+    font-size: 0.85rem;
+    color: #6b8e6b;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+}
+
+/* Health score section */
+.health-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* The circular health score display */
+.health-score {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+}
+
+/* Color the health score based on value - these are applied via JavaScript */
+.health-excellent {
+    background-color: #4caf50;  /* Green for 80+ */
+}
+
+.health-good {
+    background-color: #8bc34a;  /* Light green for 60-79 */
+}
+
+.health-fair {
+    background-color: #ffc107;  /* Yellow for 40-59 */
+}
+
+.health-poor {
+    background-color: #ff5722;  /* Orange/red for below 40 */
+}
+
+/* Health label text */
+.health-label {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Care status badge */
+.care-status {
+    margin-top: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: inline-block;
+}
+
+.status-thriving {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-needs_attention {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.status-critical {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.status-seasonal_prep {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+/* ===========================================
+   WEATHER WIDGET STYLES
+   =========================================== */
+
+#weather-widget {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    Margin-top: 30px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header with title and city picker */
+.weather-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.weather-header h2 {
+    margin: 0;
+    color: #2d5a2d;
+}
+
+/* City dropdown styling */
+#city-select {
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: 2px solid #4a7c4a;
+    border-radius: 8px;
+    background-color: white;
+    color: #2d5a2d;
+    cursor: pointer;
+}
+
+#city-select:focus {
+    outline: none;
+    border-color: #2d5a2d;
+}
+
+/* Loading state */
+.weather-loading {
+    text-align: center;
+    padding: 40px;
+    color: #6b8e6b;
+    font-style: italic;
+}
+
+/* Simple loading animation using CSS */
+.weather-loading::after {
+    content: '';
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}
+
+/* Error state */
+.weather-error {
+    text-align: center;
+    padding: 30px;
+    background-color: #ffebee;
+    border-radius: 8px;
+    color: #c62828;
+}
+
+.weather-error p {
+    margin: 0 0 15px 0;
+}
+
+#retry-button {
+    padding: 8px 20px;
+    background-color: #c62828;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+#retry-button:hover {
+    background-color: #b71c1c;
+}
+
+/* Current weather display */
+.current-weather {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #e8f5e9;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.current-temp {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #2d5a2d;
+}
+
+.current-details {
+    flex: 1;
+}
+
+.current-details h3 {
+    margin: 0 0 5px 0;
+    color: #2d5a2d;
+}
+
+.current-details p {
+    margin: 0;
+    color: #6b8e6b;
+    font-size: 0.9rem;
+}
+
+.weather-icon {
+    font-size: 3rem;
+}
+
+/* 10-day forecast grid */
+.forecast {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+}
+
+.forecast-day {
+    text-align: center;
+    padding: 12px 8px;
+    background-color: #f0f7f0;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.forecast-day:hover {
+    background-color: #e8f5e9;
+}
+
+.forecast-day .day-name {
+    font-weight: bold;
+    color: #2d5a2d;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+.forecast-day .day-icon {
+    font-size: 1.5rem;
+    margin: 5px 0;
+}
+
+.forecast-day .day-temps {
+    font-size: 0.85rem;
+}
+
+.forecast-day .temp-high {
+    color: #d84315;
+    font-weight: bold;
+}
+
+.forecast-day .temp-low {
+    color: #1565c0;
+}

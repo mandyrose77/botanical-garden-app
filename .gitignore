@@ -1,0 +1,18 @@
+# .gitignore - Files that Git should NOT track
+
+# Mac system files
+.DS_Store
+
+# Claude Code session files
+.claude/
+
+# Editor files
+.vscode/
+.idea/
+
+# Dependencies (if you add npm later)
+node_modules/
+
+# Environment files (for secrets - never commit these!)
+.env
+.env.local
