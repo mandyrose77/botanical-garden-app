@@ -321,3 +321,207 @@ header p {
 .forecast-day .temp-low {
     color: #1565c0;
 }
+
+/* ===========================================
+   SEARCH AND FILTER CONTROLS
+   =========================================== */
+
+#controls {
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Search box */
+.search-box {
+    flex: 1;
+    min-width: 200px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 2px solid #4a7c4a;
+    border-radius: 8px;
+    background-color: white;
+    color: #2d5a2d;
+    box-sizing: border-box;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #2d5a2d;
+    box-shadow: 0 0 0 3px rgba(74, 124, 74, 0.2);
+}
+
+#search-input::placeholder {
+    color: #6b8e6b;
+}
+
+/* Filter buttons */
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 2px solid #4a7c4a;
+    border-radius: 20px;
+    background-color: white;
+    color: #2d5a2d;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background-color: #e8f5e9;
+}
+
+/* Active filter button */
+.filter-btn.active {
+    background-color: #2d5a2d;
+    color: white;
+    border-color: #2d5a2d;
+}
+
+/* ===========================================
+   DETAIL PANEL (Slide-in from right)
+   =========================================== */
+
+.detail-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    max-width: 90vw;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background-color: #f0f7f0;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #2d5a2d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background-color: #e8f5e9;
+}
+
+/* Detail content styling */
+.detail-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e8f5e9;
+}
+
+.detail-header h2 {
+    margin: 0 0 8px 0;
+    color: #2d5a2d;
+    padding-right: 40px;
+}
+
+.detail-header .zone-type {
+    margin: 0;
+}
+
+.detail-description {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Stats grid in detail view */
+.detail-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    background-color: #f0f7f0;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #6b8e6b;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #2d5a2d;
+}
+
+/* Caretaker info */
+.caretaker-info {
+    background-color: #e8f5e9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.caretaker-info h4 {
+    margin: 0 0 5px 0;
+    color: #2d5a2d;
+}
+
+.caretaker-info p {
+    margin: 0;
+    color: #555;
+}
+
+/* Make zone cards clickable */
+.zone-card {
+    cursor: pointer;
+}
+
+.zone-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Hidden class for filtering */
+.zone-card.hidden {
+    display: none;
+}
+
+/* Overlay behind detail panel */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}

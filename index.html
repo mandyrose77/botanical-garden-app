@@ -13,10 +13,37 @@
     </header>
 
     <main>
-        
+        <!-- Search and Filter Controls -->
+        <section id="controls">
+            <!-- Search box -->
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search zones by name..."
+                >
+            </div>
+
+            <!-- Filter buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="critical">Critical</button>
+                <button class="filter-btn" data-filter="needs_attention">Needs Attention</button>
+                <button class="filter-btn" data-filter="seasonal_prep">Seasonal Prep</button>
+                <button class="filter-btn" data-filter="thriving">Thriving</button>
+            </div>
+        </section>
 
         <!-- This is where JavaScript will insert our zone cards -->
         <div id="zones-container"></div>
+
+        <!-- Detail Panel - Hidden by default, shown when a zone is clicked -->
+        <div id="detail-panel" class="detail-panel" style="display: none;">
+            <button id="close-detail" class="close-btn">&times;</button>
+            <div id="detail-content">
+                <!-- Filled by JavaScript when a zone is clicked -->
+            </div>
+        </div>
 
 <!-- Weather Widget Section -->
         <section id="weather-widget">
