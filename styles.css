@@ -1,207 +1,593 @@
 /*
-  styles.css - Plant-themed styling for our garden app
+  styles.css - Premium Glassmorphism Garden Theme
 
-  CSS works by selecting HTML elements and applying styles to them.
-  Each rule has a selector (like "body") and properties (like "background-color").
+  UPDATED: Modern glassmorphism design with:
+  - Frosted glass effects
+  - Animated health scores
+  - Gradient backgrounds
+  - Premium polish
 */
 
-/* Apply styles to the whole page */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f7f0;  /* Light sage green background */
-    margin: 0;
-    padding: 20px;
-    color: #2d5a2d;  /* Dark forest green text */
+/* ===========================================
+   BASE STYLES & BACKGROUND
+   =========================================== */
+
+* {
+    box-sizing: border-box;
 }
 
-/* Style the header section */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #1a3d1a;
+    min-height: 100vh;
+
+    /* Gradient background with nature colors */
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 25%, #a5d6a7 50%, #c8e6c9 75%, #e8f5e9 100%);
+    background-attachment: fixed;
+
+    /* Subtle pattern overlay */
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(129, 199, 132, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(165, 214, 167, 0.1) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ===========================================
+   HEADER - Glassmorphism Style
+   =========================================== */
+
 header {
     text-align: center;
     margin-bottom: 30px;
-    padding: 20px;
-    background-color: #2d5a2d;  /* Dark forest green */
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+
+    /* Glassmorphism effect */
+    background: rgba(45, 90, 45, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 32px rgba(31, 38, 31, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     color: white;
-    border-radius: 10px;
 }
 
 header h1 {
-    margin: 0 0 10px 0;
-    font-size: 2rem;
+    margin: 0 0 8px 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: -0.5px;
 }
 
 header p {
     margin: 0;
     opacity: 0.9;
-}
-
-/* Container for all zone cards - uses CSS Grid for layout */
-#zones-container {
-    display: grid;
-    /* This creates a responsive grid - cards will wrap to new rows as needed */
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;  /* Centers the container */
-}
-
-/* Individual zone card styling */
-.zone-card {
-    background-color: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #4a7c4a;  /* Green accent border */
-    transition: transform 0.2s;  /* Smooth hover effect */
-}
-
-.zone-card:hover {
-    transform: translateY(-2px);  /* Slight lift on hover */
-}
-
-/* Zone name styling */
-.zone-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0 0 8px 0;
-    color: #2d5a2d;
-}
-
-/* Zone type (like "indoor_conservatory") */
-.zone-type {
-    font-size: 0.85rem;
-    color: #6b8e6b;
-    margin-bottom: 15px;
-    text-transform: capitalize;
-}
-
-/* Health score section */
-.health-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-/* The circular health score display */
-.health-score {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: white;
-}
-
-/* Color the health score based on value - these are applied via JavaScript */
-.health-excellent {
-    background-color: #4caf50;  /* Green for 80+ */
-}
-
-.health-good {
-    background-color: #8bc34a;  /* Light green for 60-79 */
-}
-
-.health-fair {
-    background-color: #ffc107;  /* Yellow for 40-59 */
-}
-
-.health-poor {
-    background-color: #ff5722;  /* Orange/red for below 40 */
-}
-
-/* Health label text */
-.health-label {
-    font-size: 0.9rem;
-    color: #555;
-}
-
-/* Care status badge */
-.care-status {
-    margin-top: 12px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    display: inline-block;
-}
-
-.status-thriving {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-}
-
-.status-needs_attention {
-    background-color: #fff3e0;
-    color: #e65100;
-}
-
-.status-critical {
-    background-color: #ffebee;
-    color: #c62828;
-}
-
-.status-seasonal_prep {
-    background-color: #e3f2fd;
-    color: #1565c0;
+    font-size: 1.05rem;
 }
 
 /* ===========================================
-   WEATHER WIDGET STYLES
+   ZONE CARDS CONTAINER
+   =========================================== */
+
+#zones-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===========================================
+   ZONE CARDS - Glassmorphism
+   =========================================== */
+
+.zone-card {
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 24px;
+    cursor: pointer;
+
+    /* Premium shadow */
+    box-shadow:
+        0 4px 24px rgba(45, 90, 45, 0.1),
+        0 1px 2px rgba(45, 90, 45, 0.05);
+
+    /* Smooth transitions */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Subtle gradient border effect */
+    position: relative;
+    overflow: hidden;
+}
+
+.zone-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4caf50, #81c784, #4caf50);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.zone-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 12px 40px rgba(45, 90, 45, 0.2),
+        0 4px 12px rgba(45, 90, 45, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.zone-card:hover::before {
+    opacity: 1;
+}
+
+/* Zone name */
+.zone-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    color: #1a3d1a;
+}
+
+/* Zone type */
+.zone-type {
+    font-size: 0.85rem;
+    color: #558b55;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+/* ===========================================
+   ANIMATED HEALTH SCORE CIRCLE
+   =========================================== */
+
+.health-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.health-score-wrapper {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+/* SVG ring background */
+.health-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.health-ring-bg {
+    fill: none;
+    stroke: rgba(0, 0, 0, 0.1);
+    stroke-width: 4;
+}
+
+.health-ring-progress {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 176; /* 2 * PI * 28 (radius) */
+    stroke-dashoffset: 176;
+    transition: stroke-dashoffset 1s ease-out;
+}
+
+/* Health score number */
+.health-score {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background: transparent !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Health score colors */
+.health-excellent .health-ring-progress { stroke: #2e7d32; }
+.health-excellent .health-score { color: #2e7d32; }
+
+.health-good .health-ring-progress { stroke: #558b2f; }
+.health-good .health-score { color: #558b2f; }
+
+.health-fair .health-ring-progress { stroke: #f9a825; }
+.health-fair .health-score { color: #f9a825; }
+
+.health-poor .health-ring-progress { stroke: #d84315; }
+.health-poor .health-score { color: #d84315; }
+
+.health-label {
+    font-size: 0.9rem;
+    color: #558b55;
+    font-weight: 500;
+}
+
+/* ===========================================
+   CARE STATUS BADGES - Premium
+   =========================================== */
+
+.care-status {
+    margin-top: 16px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+}
+
+.status-thriving {
+    background: linear-gradient(135deg, rgba(46, 125, 50, 0.15), rgba(76, 175, 80, 0.15));
+    color: #2e7d32;
+    border: 1px solid rgba(46, 125, 50, 0.3);
+}
+
+.status-needs_attention {
+    background: linear-gradient(135deg, rgba(230, 81, 0, 0.12), rgba(255, 152, 0, 0.12));
+    color: #e65100;
+    border: 1px solid rgba(230, 81, 0, 0.3);
+}
+
+.status-critical {
+    background: linear-gradient(135deg, rgba(198, 40, 40, 0.12), rgba(244, 67, 54, 0.12));
+    color: #c62828;
+    border: 1px solid rgba(198, 40, 40, 0.3);
+}
+
+.status-seasonal_prep {
+    background: linear-gradient(135deg, rgba(21, 101, 192, 0.12), rgba(33, 150, 243, 0.12));
+    color: #1565c0;
+    border: 1px solid rgba(21, 101, 192, 0.3);
+}
+
+/* Hidden class for filtering */
+.zone-card.hidden {
+    display: none;
+}
+
+/* ===========================================
+   SEARCH AND FILTER CONTROLS - Glass
+   =========================================== */
+
+#controls {
+    max-width: 1200px;
+    margin: 0 auto 24px auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(45, 90, 45, 0.08);
+}
+
+/* Search box */
+.search-box {
+    flex: 1;
+    min-width: 220px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 1rem;
+    border: 2px solid rgba(74, 124, 74, 0.3);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #1a3d1a;
+    transition: all 0.3s ease;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #4a7c4a;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 4px rgba(74, 124, 74, 0.15);
+}
+
+#search-input::placeholder {
+    color: #6b8e6b;
+}
+
+/* Filter buttons */
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 10px 18px;
+    border: 2px solid rgba(74, 124, 74, 0.3);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.7);
+    color: #2d5a2d;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #4a7c4a;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #2d5a2d, #3d7a3d);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(45, 90, 45, 0.3);
+}
+
+/* ===========================================
+   DETAIL PANEL - Glassmorphism
+   =========================================== */
+
+.detail-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 420px;
+    max-width: 90vw;
+    height: 100vh;
+    padding: 32px;
+    overflow-y: auto;
+    z-index: 1000;
+
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: -8px 0 40px rgba(45, 90, 45, 0.15);
+
+    /* Slide animation */
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(45, 90, 45, 0.1);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #2d5a2d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+    background: rgba(45, 90, 45, 0.2);
+    transform: rotate(90deg);
+}
+
+/* Detail content */
+.detail-header {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(45, 90, 45, 0.1);
+}
+
+.detail-header h2 {
+    margin: 0 0 8px 0;
+    color: #1a3d1a;
+    padding-right: 50px;
+    font-size: 1.5rem;
+}
+
+.detail-header .zone-type {
+    margin: 0 0 12px 0;
+}
+
+.detail-description {
+    font-style: italic;
+    color: #558b55;
+    margin-bottom: 24px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Stats grid */
+.detail-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.08), rgba(129, 199, 132, 0.08));
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #558b55;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a3d1a;
+}
+
+/* Caretaker info */
+.caretaker-info {
+    background: linear-gradient(135deg, rgba(45, 90, 45, 0.1), rgba(76, 175, 80, 0.1));
+    padding: 18px;
+    border-radius: 12px;
+    margin-top: 16px;
+    border: 1px solid rgba(45, 90, 45, 0.15);
+}
+
+.caretaker-info h4 {
+    margin: 0 0 6px 0;
+    color: #2d5a2d;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.caretaker-info p {
+    margin: 0;
+    color: #1a3d1a;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(26, 61, 26, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ===========================================
+   WEATHER WIDGET - Glassmorphism
    =========================================== */
 
 #weather-widget {
-    background-color: white;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 30px;
-    Margin-top: 30px;
+    border-radius: 20px;
+    padding: 24px;
+    margin-top: 30px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 24px rgba(45, 90, 45, 0.1);
 }
 
-/* Header with title and city picker */
 .weather-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
 }
 
 .weather-header h2 {
     margin: 0;
-    color: #2d5a2d;
+    color: #1a3d1a;
+    font-weight: 700;
 }
 
-/* City dropdown styling */
 #city-select {
-    padding: 8px 12px;
+    padding: 10px 16px;
     font-size: 1rem;
-    border: 2px solid #4a7c4a;
-    border-radius: 8px;
-    background-color: white;
-    color: #2d5a2d;
+    border: 2px solid rgba(74, 124, 74, 0.3);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #1a3d1a;
     cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 #city-select:focus {
     outline: none;
-    border-color: #2d5a2d;
+    border-color: #4a7c4a;
+    box-shadow: 0 0 0 4px rgba(74, 124, 74, 0.15);
 }
 
 /* Loading state */
 .weather-loading {
     text-align: center;
     padding: 40px;
-    color: #6b8e6b;
+    color: #558b55;
     font-style: italic;
 }
 
-/* Simple loading animation using CSS */
 .weather-loading::after {
     content: '';
     animation: dots 1.5s steps(4, end) infinite;
@@ -218,9 +604,10 @@ header p {
 .weather-error {
     text-align: center;
     padding: 30px;
-    background-color: #ffebee;
-    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(198, 40, 40, 0.1), rgba(244, 67, 54, 0.1));
+    border-radius: 12px;
     color: #c62828;
+    border: 1px solid rgba(198, 40, 40, 0.2);
 }
 
 .weather-error p {
@@ -228,35 +615,39 @@ header p {
 }
 
 #retry-button {
-    padding: 8px 20px;
-    background-color: #c62828;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #c62828, #d84315);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 #retry-button:hover {
-    background-color: #b71c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(198, 40, 40, 0.3);
 }
 
-/* Current weather display */
+/* Current weather */
 .current-weather {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
-    background-color: #e8f5e9;
-    border-radius: 10px;
+    gap: 24px;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(129, 199, 132, 0.1));
+    border-radius: 16px;
     margin-bottom: 20px;
     flex-wrap: wrap;
+    border: 1px solid rgba(76, 175, 80, 0.2);
 }
 
 .current-temp {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #2d5a2d;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1a3d1a;
 }
 
 .current-details {
@@ -265,263 +656,64 @@ header p {
 
 .current-details h3 {
     margin: 0 0 5px 0;
-    color: #2d5a2d;
+    color: #1a3d1a;
+    font-weight: 600;
 }
 
 .current-details p {
     margin: 0;
-    color: #6b8e6b;
+    color: #558b55;
     font-size: 0.9rem;
 }
 
 .weather-icon {
-    font-size: 3rem;
+    font-size: 3.5rem;
 }
 
-/* 10-day forecast grid */
+/* Forecast grid */
 .forecast {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 10px;
+    gap: 12px;
 }
 
 .forecast-day {
     text-align: center;
-    padding: 12px 8px;
-    background-color: #f0f7f0;
-    border-radius: 8px;
-    transition: background-color 0.2s;
+    padding: 14px 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(76, 175, 80, 0.1);
+    transition: all 0.3s ease;
 }
 
 .forecast-day:hover {
-    background-color: #e8f5e9;
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(45, 90, 45, 0.1);
 }
 
 .forecast-day .day-name {
-    font-weight: bold;
-    color: #2d5a2d;
+    font-weight: 700;
+    color: #1a3d1a;
     font-size: 0.85rem;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .forecast-day .day-icon {
-    font-size: 1.5rem;
-    margin: 5px 0;
+    font-size: 1.6rem;
+    margin: 6px 0;
 }
 
 .forecast-day .day-temps {
     font-size: 0.85rem;
+    font-weight: 500;
 }
 
 .forecast-day .temp-high {
     color: #d84315;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .forecast-day .temp-low {
     color: #1565c0;
-}
-
-/* ===========================================
-   SEARCH AND FILTER CONTROLS
-   =========================================== */
-
-#controls {
-    max-width: 1200px;
-    margin: 0 auto 20px auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    align-items: center;
-}
-
-/* Search box */
-.search-box {
-    flex: 1;
-    min-width: 200px;
-}
-
-#search-input {
-    width: 100%;
-    padding: 10px 15px;
-    font-size: 1rem;
-    border: 2px solid #4a7c4a;
-    border-radius: 8px;
-    background-color: white;
-    color: #2d5a2d;
-    box-sizing: border-box;
-}
-
-#search-input:focus {
-    outline: none;
-    border-color: #2d5a2d;
-    box-shadow: 0 0 0 3px rgba(74, 124, 74, 0.2);
-}
-
-#search-input::placeholder {
-    color: #6b8e6b;
-}
-
-/* Filter buttons */
-.filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.filter-btn {
-    padding: 8px 16px;
-    border: 2px solid #4a7c4a;
-    border-radius: 20px;
-    background-color: white;
-    color: #2d5a2d;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-}
-
-.filter-btn:hover {
-    background-color: #e8f5e9;
-}
-
-/* Active filter button */
-.filter-btn.active {
-    background-color: #2d5a2d;
-    color: white;
-    border-color: #2d5a2d;
-}
-
-/* ===========================================
-   DETAIL PANEL (Slide-in from right)
-   =========================================== */
-
-.detail-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 400px;
-    max-width: 90vw;
-    height: 100vh;
-    background-color: white;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-    padding: 30px;
-    overflow-y: auto;
-    z-index: 1000;
-    box-sizing: border-box;
-}
-
-/* Close button */
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 36px;
-    height: 36px;
-    border: none;
-    background-color: #f0f7f0;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #2d5a2d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.close-btn:hover {
-    background-color: #e8f5e9;
-}
-
-/* Detail content styling */
-.detail-header {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #e8f5e9;
-}
-
-.detail-header h2 {
-    margin: 0 0 8px 0;
-    color: #2d5a2d;
-    padding-right: 40px;
-}
-
-.detail-header .zone-type {
-    margin: 0;
-}
-
-.detail-description {
-    font-style: italic;
-    color: #555;
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-/* Stats grid in detail view */
-.detail-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.stat-item {
-    background-color: #f0f7f0;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-.stat-label {
-    font-size: 0.8rem;
-    color: #6b8e6b;
-    margin-bottom: 5px;
-}
-
-.stat-value {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #2d5a2d;
-}
-
-/* Caretaker info */
-.caretaker-info {
-    background-color: #e8f5e9;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-}
-
-.caretaker-info h4 {
-    margin: 0 0 5px 0;
-    color: #2d5a2d;
-}
-
-.caretaker-info p {
-    margin: 0;
-    color: #555;
-}
-
-/* Make zone cards clickable */
-.zone-card {
-    cursor: pointer;
-}
-
-.zone-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Hidden class for filtering */
-.zone-card.hidden {
-    display: none;
-}
-
-/* Overlay behind detail panel */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: 999;
 }

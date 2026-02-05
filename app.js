@@ -7,11 +7,13 @@
   - Click to view zone details
   - Filter by care status
   - Search zones by name
+  - ANIMATED health score rings (SVG-based)
 
   KEY CONCEPTS:
   - Event listeners: respond to user clicks, typing, etc.
   - Show/hide elements: control what the user sees
   - Filtering data: show only items that match criteria
+  - SVG animations: animated circular progress indicators
 */
 
 // ============================================
@@ -46,20 +48,45 @@ function formatDate(dateString) {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+/*
+  Calculate the stroke-dashoffset for the SVG ring animation
+  - circumference = 2 * PI * radius = 2 * 3.14159 * 28 = ~176
+  - offset = circumference * (1 - percentage/100)
+  - When offset = 0, ring is full; when offset = circumference, ring is empty
+*/
+function calculateStrokeOffset(score) {
+    const circumference = 176; // 2 * PI * 28
+    return circumference * (1 - score / 100);
+}
+
 // ============================================
-// STEP 3: Create zone card HTML
+// STEP 3: Create zone card HTML with animated ring
 // ============================================
-// Added data-id attribute so we can identify which zone was clicked
 
 function createZoneCard(zone) {
+    const healthClass = getHealthClass(zone.health_score);
+    const strokeOffset = calculateStrokeOffset(zone.health_score);
+
     return `
-        <div class="zone-card" data-id="${zone.id}" data-status="${zone.care_status}">
+        <div class="zone-card" data-id="${zone.id}" data-status="${zone.care_status}" data-score="${zone.health_score}">
             <h2 class="zone-name">${zone.name}</h2>
             <p class="zone-type">${zone.zone_type.replace(/_/g, ' ')}</p>
 
             <div class="health-section">
-                <div class="health-score ${getHealthClass(zone.health_score)}">
-                    ${zone.health_score}
+                <div class="health-score-wrapper ${healthClass}">
+                    <!-- SVG Ring for animated health score -->
+                    <svg class="health-ring" viewBox="0 0 64 64">
+                        <circle class="health-ring-bg" cx="32" cy="32" r="28"></circle>
+                        <circle
+                            class="health-ring-progress"
+                            cx="32"
+                            cy="32"
+                            r="28"
+                            style="stroke-dashoffset: 176;"
+                            data-target-offset="${strokeOffset}"
+                        ></circle>
+                    </svg>
+                    <div class="health-score">${zone.health_score}</div>
                 </div>
                 <span class="health-label">Health Score</span>
             </div>
@@ -84,19 +111,34 @@ function displayZones() {
 
     // Add click listeners to each card
     addCardClickListeners();
+
+    // Animate the health score rings after a brief delay
+    setTimeout(animateHealthRings, 100);
+}
+
+/*
+  animateHealthRings() - Animates all health score rings on page load
+
+  This creates a staggered animation effect where each ring
+  fills up to its target value one after another.
+*/
+function animateHealthRings() {
+    const rings = document.querySelectorAll('.health-ring-progress');
+
+    rings.forEach((ring, index) => {
+        const targetOffset = ring.dataset.targetOffset;
+
+        // Stagger the animation start time for each card
+        setTimeout(() => {
+            ring.style.strokeDashoffset = targetOffset;
+        }, index * 100); // 100ms delay between each card
+    });
 }
 
 // ============================================
 // STEP 5: Filter and Search logic
 // ============================================
 
-/*
-  applyFilters() - Shows/hides zone cards based on:
-  1. Current filter (care status)
-  2. Current search text (zone name)
-
-  A card is shown only if it matches BOTH criteria
-*/
 function applyFilters() {
     const cards = document.querySelectorAll('.zone-card');
 
@@ -104,13 +146,9 @@ function applyFilters() {
         const status = card.dataset.status;
         const name = card.querySelector('.zone-name').textContent.toLowerCase();
 
-        // Check if card matches filter
         const matchesFilter = currentFilter === 'all' || status === currentFilter;
-
-        // Check if card matches search
         const matchesSearch = name.includes(currentSearch.toLowerCase());
 
-        // Show card only if it matches both
         if (matchesFilter && matchesSearch) {
             card.classList.remove('hidden');
         } else {
@@ -123,16 +161,7 @@ function applyFilters() {
 // STEP 6: Detail panel functions
 // ============================================
 
-/*
-  showZoneDetail(zoneId) - Displays the detail panel for a zone
-
-  This demonstrates:
-  - Finding data by ID
-  - Dynamically building complex HTML
-  - Showing/hiding UI elements
-*/
 function showZoneDetail(zoneId) {
-    // Find the zone in our data array
     const zone = gardenZones.find(z => z.id === zoneId);
 
     if (!zone) {
@@ -140,7 +169,9 @@ function showZoneDetail(zoneId) {
         return;
     }
 
-    // Build the detail HTML
+    const healthClass = getHealthClass(zone.health_score);
+    const strokeOffset = calculateStrokeOffset(zone.health_score);
+
     detailContent.innerHTML = `
         <div class="detail-header">
             <h2>${zone.name}</h2>
@@ -182,7 +213,6 @@ function showZoneDetail(zoneId) {
         </div>
     `;
 
-    // Show the panel and overlay
     detailPanel.style.display = 'block';
     addOverlay();
 }
@@ -192,7 +222,6 @@ function hideZoneDetail() {
     removeOverlay();
 }
 
-// Overlay functions (darkens background when detail panel is open)
 function addOverlay() {
     const overlay = document.createElement('div');
     overlay.className = 'overlay';
@@ -212,7 +241,6 @@ function removeOverlay() {
 // STEP 7: Event listeners
 // ============================================
 
-// Add click listeners to zone cards
 function addCardClickListeners() {
     const cards = document.querySelectorAll('.zone-card');
     cards.forEach(card => {
@@ -223,31 +251,22 @@ function addCardClickListeners() {
     });
 }
 
-// Filter button clicks
 filterButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // Remove 'active' class from all buttons
         filterButtons.forEach(btn => btn.classList.remove('active'));
-
-        // Add 'active' class to clicked button
         button.classList.add('active');
-
-        // Update current filter and apply
         currentFilter = button.dataset.filter;
         applyFilters();
     });
 });
 
-// Search input - fires on every keystroke
 searchInput.addEventListener('input', (event) => {
     currentSearch = event.target.value;
     applyFilters();
 });
 
-// Close detail panel
 closeDetailBtn.addEventListener('click', hideZoneDetail);
 
-// Close detail panel with Escape key
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         hideZoneDetail();
@@ -260,4 +279,4 @@ document.addEventListener('keydown', (event) => {
 displayZones();
 
 console.log('Garden dashboard loaded:', gardenZones.length, 'zones');
-console.log('Features: click to view details, filter by status, search by name');
+console.log('Features: glassmorphism UI, animated health rings, filters, search');
